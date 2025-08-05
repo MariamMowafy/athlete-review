@@ -1,0 +1,33 @@
+.metrics-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.metrics-card h2 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.metrics-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.metric-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.metric-item label {
+  font-size: 14px;
+  color: var(--text-gray);
+}
+
+.metric-item span {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--accent-color);
+}

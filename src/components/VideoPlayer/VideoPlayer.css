@@ -1,0 +1,82 @@
+.tooltip {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 1000;
+  white-space: pre-line;
+}
+
+.video-player {
+  position: relative;
+  width: 100%;
+  height: auto;
+  background-color: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* This allows clicks to pass through to the video */
+}
+
+.controls-layer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  z-index: 10; /* Ensure controls are above the canvas */
+  pointer-events: auto; /* Make sure controls are clickable */
+}
+
+.continue-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+  z-index: 20; /* Ensure button is above everything */
+  pointer-events: auto; /* Make sure button is clickable */
+}
+
+.loading-overlay,
+.error-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 1.2rem;
+  z-index: 30; /* Ensure overlays are on top */
+}
+
+.error-overlay {
+  background-color: rgba(255, 0, 0, 0.1);
+}

@@ -15,7 +15,10 @@
     "react-dom": "^19.1.1",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@mediapipe/pose": "^0.5.1675469404",
+    "@tensorflow-models/pose-detection": "^2.1.0",
+    "@tensorflow/tfjs": "^4.10.0"
   },
   "scripts": {
     "start": "react-scripts start",

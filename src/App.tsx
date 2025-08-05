@@ -1,26 +1,85 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import VideoPlayer from './components/VideoPlayer/VideoPlayer';
+import JointOverlay from './components/JointOverlay/JointOverlay';
+import InfoPanel from './components/InfoPanel/InfoPanel';
+import MetricsCard from './components/MetricsCard/MetricsCard';
+import Controls from './components/Controls/Controls';
+import { AthleteInfo, PerformanceMetrics } from './utils/types';
 import './App.css';
 
-function App() {
+const App: React.FC = () => {
+  const [showKeypoints, setShowKeypoints] = useState(true);
+  const [showDimming, setShowDimming] = useState(true);
+
+  const athleteInfo: AthleteInfo = {
+    name: "John Doe",
+    sport: "Basketball",
+    sessionDate: "2025-08-04",
+    coach: "Coach Smith"
+  };
+
+  const performanceMetrics: PerformanceMetrics = {
+    repetitionCount: 5,
+    jointAngles: {
+      "Left Knee": 85,
+      "Right Knee": 87
+    },
+    formScore: 8.5
+  };
+
+  // Update the video path to ensure it's accessible
+  const videoPath = `${process.env.PUBLIC_URL}/running.mp4?v=${Date.now()}`;
+  console.log('Full video path:', window.location.origin + videoPath);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="main-content">
+        <div className="video-container">
+          <VideoPlayer
+            videoUrl={videoPath}
+            showDimming={showDimming}
+            onError={(error) => console.error('VideoPlayer error:', error)}
+          />
+          {showKeypoints && <JointOverlay />}
+        </div>
+        <Controls
+          showKeypoints={showKeypoints}
+          showDimming={showDimming}
+          onToggleKeypoints={() => setShowKeypoints(!showKeypoints)}
+          onToggleDimming={() => setShowDimming(!showDimming)}
+          onSaveFrame={() => {
+            // Implement frame saving logic
+            const video = document.querySelector('video');
+            const canvas = document.createElement('canvas');
+            if (video) {
+              canvas.width = video.videoWidth;
+              canvas.height = video.videoHeight;
+              const ctx = canvas.getContext('2d');
+              if (ctx) {
+                ctx.drawImage(video, 0, 0);
+                canvas.toBlob((blob) => {
+                  if (blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `athlete-frame-${Date.now()}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                  }
+                }, 'image/png');
+              }
+            }
+          }}
+        />
+      </div>
+      <div className="sidebar">
+        <InfoPanel athleteInfo={athleteInfo} />
+        <MetricsCard metrics={performanceMetrics} />
+      </div>
     </div>
   );
-}
+};
 
 export default App;
