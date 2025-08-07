@@ -31,7 +31,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, showDimming, onErro
     y: number;
   } | null>(null);
 
-  const pausePoints = [5, 10]; // Example pause points in seconds
+  const pausePoints = [4, 10]; // Example pause points in seconds
 
   const colors = {
     head: '#FF0000',
