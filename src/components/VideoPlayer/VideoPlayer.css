@@ -1,66 +1,38 @@
-.tooltip {
-  position: fixed;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 8px;
-  border-radius: 4px;
-  font-size: 14px;
-  pointer-events: none;
-  z-index: 1000;
-  white-space: pre-line;
-}
-
+/* Main container for the video player */
 .video-player {
-  position: relative;
+  position: relative; /* Crucial for absolute positioning of children */
   width: 100%;
-  height: auto;
-  background-color: #000;
-  border-radius: 8px;
-  overflow: hidden;
+  max-width: 1200px; /* Example max-width, adjust as needed */
+  margin: auto; /* Centers the video player itself */
+  background-color: #000; /* Ensures a black background for the video area */
+  border-radius: 8px; /* Rounded corners for the player */
+  overflow: hidden; /* Clips content outside the rounded corners */
 }
 
+/* The video element itself */
 .video {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
+  object-fit: cover;
+  display: block; /* Removes extra space below the video */
 }
 
+/* Overlay for drawing, etc. */
 .overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; /* This allows clicks to pass through to the video */
+  pointer-events: none; /* Allows clicks to pass through by default */
+  z-index: 50; /* Ensure overlay is above video but below popups/buttons */
 }
 
-.controls-layer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 20px;
-  z-index: 10; /* Ensure controls are above the canvas */
-  pointer-events: auto; /* Make sure controls are clickable */
+.overlay.clickable {
+  pointer-events: auto; /* Enables clicks on the canvas when paused */
 }
 
-.continue-button {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 12px 24px;
-  background-color: var(--accent-color);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s;
-  z-index: 20; /* Ensure button is above everything */
-  pointer-events: auto; /* Make sure button is clickable */
-}
-
+/* Overlays for loading and error states */
 .loading-overlay,
 .error-overlay {
   position: absolute;
@@ -68,15 +40,64 @@
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
-  font-size: 1.2rem;
-  z-index: 30; /* Ensure overlays are on top */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  z-index: 1000;
+  border-radius: 8px; /* Match player border-radius */
 }
 
-.error-overlay {
-  background-color: rgba(255, 0, 0, 0.1);
+/* Styles for the control buttons container */
+.control-buttons {
+  position: absolute;
+  bottom: 20px; /* Increased spacing from the bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex; /* This is the key: it arranges children (buttons) in a row */
+  gap: 15px; /* This creates space between the buttons */
+  pointer-events: auto; /* Ensures buttons are clickable */
+  background-color: rgba(20, 20, 20, 0.6); /* Slightly transparent background */
+  padding: 10px;
+  border-radius: 12px; /* Softer rounded corners */
+  backdrop-filter: blur(5px); /* Frosted glass effect */
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* General button styling for all buttons inside the container */
+.control-buttons button {
+  padding: 10px 10px;
+  background-color: #3498db; /* Blue color */
+  color: white;
+  border: none;
+  border-radius: 8px; /* Consistent rounded corners */
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
+}
+
+.control-buttons button:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.control-buttons button:active {
+  transform: translateY(0); /* Press down effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow on press */
+}
+p {
+  font-size: 16px;
+}
+
+/* Styles for smaller screens (max-width: 640px) */
+@media (max-width: 640px) {
+  p {
+    font-size: 10px;
+  }
 }

@@ -12,10 +12,10 @@ const App: React.FC = () => {
   const [showDimming, setShowDimming] = useState(true);
 
   const athleteInfo: AthleteInfo = {
-    name: "John Doe",
-    sport: "Basketball",
+    name: "Mohamed Ahmed",
+    sport: "Trail Running",
     sessionDate: "2025-08-04",
-    coach: "Coach Smith"
+    coach: "Coach Mahmoud"
   };
 
   const performanceMetrics: PerformanceMetrics = {
@@ -27,9 +27,9 @@ const App: React.FC = () => {
     formScore: 8.5
   };
 
-  // Update the video path to ensure it's accessible
+
   const videoPath = `${process.env.PUBLIC_URL}/running.mp4?v=${Date.now()}`;
-  console.log('Full video path:', window.location.origin + videoPath);
+  console.log('Video Path:', videoPath);
 
   return (
     <div className="app">
@@ -38,7 +38,6 @@ const App: React.FC = () => {
           <VideoPlayer
             videoUrl={videoPath}
             showDimming={showDimming}
-            onError={(error) => console.error('VideoPlayer error:', error)}
           />
           {showKeypoints && <JointOverlay />}
         </div>
@@ -48,7 +47,6 @@ const App: React.FC = () => {
           onToggleKeypoints={() => setShowKeypoints(!showKeypoints)}
           onToggleDimming={() => setShowDimming(!showDimming)}
           onSaveFrame={() => {
-            // Implement frame saving logic
             const video = document.querySelector('video');
             const canvas = document.createElement('canvas');
             if (video) {

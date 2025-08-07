@@ -32,9 +32,6 @@ const Controls: React.FC<ControlsProps> = ({
           {showDimming ? 'Hide' : 'Show'} Dimming
         </button>
       </div>
-      <button className="save-button" onClick={onSaveFrame}>
-        Save Frame
-      </button>
     </div>
   );
 };
