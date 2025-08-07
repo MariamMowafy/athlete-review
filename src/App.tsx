@@ -38,6 +38,7 @@ const App: React.FC = () => {
           <VideoPlayer
             videoUrl={videoPath}
             showDimming={showDimming}
+            showKeypoints={showKeypoints}
           />
           {showKeypoints && <JointOverlay />}
         </div>

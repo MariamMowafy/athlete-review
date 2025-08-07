@@ -6,6 +6,7 @@ import './VideoPlayer.css';
 interface VideoPlayerProps {
   videoUrl: string;
   showDimming: boolean;
+  showKeypoints: boolean;
   onError?: (error: string) => void;
 }
 
@@ -13,7 +14,7 @@ interface KeypointWithName extends poseDetection.Keypoint {
   name: string;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, showDimming, onError }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, showDimming, showKeypoints, onError }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const skeletonCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -185,6 +186,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, showDimming, onErro
           applyDimmingEffect(ctx, keypointsWithName);
         }
 
+        if (showKeypoints) { // Add this check
         drawSkeleton(ctx, keypointsWithName);
 
         keypointsWithName.forEach(keypoint => {
@@ -199,11 +201,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, showDimming, onErro
             ctx.stroke();
           }
         });
-      } catch (error) {
-        console.error('Error in pose detection:', error);
       }
+    } catch (error) {
+      console.error('Error in pose detection:', error);
     }
-  }, [detector, isVideoReady, showDimming, drawSkeleton, mapToDisplaySpace]);
+  }
+}, [detector, isVideoReady, showDimming, drawSkeleton, mapToDisplaySpace, showKeypoints]); // Add showKeypoints here
 
 
   const applyDimmingEffect = (ctx: CanvasRenderingContext2D, keypoints: KeypointWithName[]) => {
