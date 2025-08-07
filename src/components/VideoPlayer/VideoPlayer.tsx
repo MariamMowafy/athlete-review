@@ -186,7 +186,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, showDimming, showKe
           applyDimmingEffect(ctx, keypointsWithName);
         }
 
-        if (showKeypoints) { // Add this check
+        if (showKeypoints) { 
         drawSkeleton(ctx, keypointsWithName);
 
         keypointsWithName.forEach(keypoint => {
